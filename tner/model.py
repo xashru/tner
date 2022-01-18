@@ -163,8 +163,8 @@ class TrainTransformersNER:
         self.optimizer = transformers.AdamW(optimizer_grouped_parameters, lr=self.args.lr, eps=1e-8)
 
         # scheduler
-        self.scheduler = transformers.get_linear_schedule_with_warmup(
-            self.optimizer, num_warmup_steps=self.args.warmup_step, num_training_steps=self.args.total_step)
+#         self.scheduler = transformers.get_linear_schedule_with_warmup(
+#             self.optimizer, num_warmup_steps=self.args.warmup_step, num_training_steps=self.args.total_step)
 
         # GPU allocation
         self.model.to(self.device)
