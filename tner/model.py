@@ -349,7 +349,7 @@ class TrainTransformersNER:
 
             # optimizer and scheduler step
             self.optimizer.step()
-            self.scheduler.step()
+            # self.scheduler.step()
 
             # log instantaneous accuracy, loss, and learning rate
             inst_loss = loss.cpu().detach().item()
