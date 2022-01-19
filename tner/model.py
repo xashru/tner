@@ -30,15 +30,15 @@ class TrainTransformersNER:
                  checkpoint_dir: str,
                  dataset: (str, List) = None,
                  transformers_model: str = 'xlm-roberta-large',
-                 random_seed: int = 1234,
+                 random_seed: int = 1,
                  lr: float = 1e-5,
                  total_step: int = 5000,
                  warmup_step: int = 700,
-                 weight_decay: float = 1e-7,
+                 weight_decay: float = 0,
                  batch_size: int = 32,
                  max_seq_length: int = 128,
                  fp16: bool = False,
-                 max_grad_norm: float = 1.0,
+                 max_grad_norm: float = 100.0,
                  lower_case: bool = False,
                  num_worker: int = 0,
                  cache_dir: str = None):
@@ -157,10 +157,10 @@ class TrainTransformersNER:
         no_decay = ["bias", "LayerNorm.weight"]
         optimizer_grouped_parameters = [
             {"params": [p for n, p in self.model.named_parameters() if not any(nd in n for nd in no_decay)],
-             "weight_decay": self.args.weight_decay},
+             "weight_decay": 0},
             {"params": [p for n, p in self.model.named_parameters() if any(nd in n for nd in no_decay)],
              "weight_decay": 0.0}]
-        self.optimizer = transformers.AdamW(optimizer_grouped_parameters, lr=self.args.lr, eps=1e-8)
+        self.optimizer = transformers.AdamW(optimizer_grouped_parameters, lr=self.args.lr)
 
         # scheduler
 #         self.scheduler = transformers.get_linear_schedule_with_warmup(
